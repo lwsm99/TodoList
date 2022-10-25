@@ -1,15 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <input type="text" v-model="addTaskInput">
+ <button @click="addToList">add to List</button>
+  <p>
+    {{taskArray}}
+  </p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  data() {
+    return {
+      taskArray: [],
+      addTaskInput:"",
+    }
+  },
+  methods:{
+    addToList(){
+      this.taskArray.push(this.addTaskInput)
+    }
   }
 }
 </script>
