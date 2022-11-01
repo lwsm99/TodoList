@@ -182,6 +182,7 @@ export default {
       i+=1
       this.addTaskInput = '';
       this.addTaskInputPrio = '';
+      this.taskArray.sort((a, b) => b.prio - a.prio);
     },
     addKategorie(){
       this.kategorieArray.push(this.addKategorieInput)
