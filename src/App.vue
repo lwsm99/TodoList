@@ -9,7 +9,7 @@
     </button>
 
     <div v-for="task in taskArray" :key="task.id">
-      <p>{{ task.freitext }} - {{ task.prio }} - {{ task.done }}</p>
+      <p>{{ task.freitext }} - {{ task.prio }} - {{ task.done }} <button @click="editTask(task.id)">Edit</button></p>
     </div>
   </div>
 
@@ -55,11 +55,52 @@
     </div>
   </div>
 
+  <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabelEdit">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="text" v-model="addTaskInput" class="form-control" style="width: 20rem" placeholder="Task">
+          </div>
+          <select class="form-select form-select-lg mb-3" style="width: 20rem">
+            <option selected disabled>Kategorie auswählen</option>
+            <option  v-for="kategorie in kategorieArray" :key ="kategorie.id">{{kategorie}}</option>
+          </select>
+          <details>
+            <summary>Kategorie nicht dabei?</summary>
+            <div class="form-group">
+              <input type="text" v-model="addKategorieInput" class="form-control" style="width: 20rem" placeholder="Kategorie">
+            </div>
+            <button class="btn btn-secondary" @click="addKategorie">Kategorie hinzufügen</button>
+          </details>
+          <br>
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 20rem" v-model="addTaskInputPrio">
+            <option selected disabled>Priorität</option>
+            <option value="3">Hoch</option>
+            <option value="2">Mittel</option>
+            <option value="1">Niedrig</option>
+          </select>
+          <br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" @click="addToList">Add To List</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
 
-
+let i = 1;
 export default {
   name: 'App',
   components: {
@@ -80,13 +121,17 @@ export default {
   methods:{
     addToList(){
       this.taskArray.push(
-          {freitext: this.addTaskInput, prio: this.addTaskInputPrio, done: false}
+          {freitext: this.addTaskInput, prio: this.addTaskInputPrio, done: false, id: i}
       )
+      i+=1
       this.addTaskInput = '';
       this.addTaskInputPrio = '';
     },
     addKategorie(){
       this.kategorieArray.push(this.addKategorieInput)
+    },
+    editTask(id){
+      console.log(id)
     }
   }
 }
