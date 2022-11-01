@@ -37,6 +37,7 @@
           <br>
           <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 20rem" v-model="addTaskInputPrio">
             <option selected disabled>Priorität</option>
+            <option value="4">Sehr Hoch</option>
             <option value="3">Hoch</option>
             <option value="2">Mittel</option>
             <option value="1">Niedrig</option>
@@ -63,9 +64,9 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" v-model="addTaskInput" class="form-control" style="width: 20rem" placeholder="Task">
+            <input type="text" v-model="editTaskText" class="form-control" style="width: 20rem" placeholder="Task">
           </div>
-          <select class="form-select form-select-lg mb-3" style="width: 20rem">
+          <select class="form-select form-select-lg mb-3" style="width: 20rem" v-model="editTaskCat">
             <option selected disabled>Kategorie auswählen</option>
             <option  v-for="kategorie in kategorieArray" :key ="kategorie.id">{{kategorie}}</option>
           </select>
@@ -77,8 +78,9 @@
             <button class="btn btn-secondary" @click="addKategorie">Kategorie hinzufügen</button>
           </details>
           <br>
-          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 20rem" v-model="addTaskInputPrio">
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 20rem" v-model="editTaskPrio">
             <option selected disabled>Priorität</option>
+            <option value="3">Sehr Hoch</option>
             <option value="3">Hoch</option>
             <option value="2">Mittel</option>
             <option value="1">Niedrig</option>
@@ -87,7 +89,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="addToList">Add To List</button>
+          <button type="button" class="btn btn-primary" @click="editTask">Add To List</button>
         </div>
       </div>
     </div>
@@ -115,7 +117,7 @@
         </button>
       </td>
       <td>
-        <button type="button" class="btn btn-primary" @click="editTask(task.id)">
+        <button type="button" class="btn btn-primary" @click="openEditTask(task.id)" data-toggle="modal" data-target="#modalEdit">
           Bearbeiten
         </button>
       </td>
@@ -126,6 +128,7 @@
 </template>
 
 <script>
+
 // eslint-disable-next-line
 $(document).ready(function(){
   // eslint-disable-next-line
@@ -151,9 +154,15 @@ export default {
 
       ],
       kategorieArray:[],
+
       addTaskInput:"",
       addTaskInputPrio:0,
       kategorieInput:'',
+
+      editTaskText:"",
+      editTaskCat:"",
+      editTaskPrio:"",
+      editTaskId:"",
 
       addKategorieInput:"",
     }
@@ -170,8 +179,23 @@ export default {
     addKategorie(){
       this.kategorieArray.push(this.addKategorieInput)
     },
-    editTask(id){
-      console.log(id)
+    openEditTask(id){
+      let task = this.taskArray.find(x => x.id === id)
+      this.editTaskText = task.freitext
+      this.editTaskCat = task.kategorie
+      this.editTaskPrio = task.prio
+      this.editTaskId = task.id
+    },
+    removeObjectWithId(arr, id) {
+      const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+      arr.splice(objWithIdIndex, 1);
+    },
+    editTask(){
+      this.removeObjectWithId(this.taskArray, this.editTaskId)
+      this.taskArray.push(
+          {freitext: this.editTaskText, prio: this.editTaskPrio, done: false, id: this.editTaskId, kategorie: this.editTaskCat}
+
+      )
     },
     changeName(prio) {
       if (Number(prio) === 3) return "Hoch"
