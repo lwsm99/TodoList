@@ -101,6 +101,7 @@
       <th scope="col">Prio</th>
       <th scope="col">Done</th>
       <th scope="col">Editieren</th>
+      <th scope="col">Löschen</th>
     </tr>
   </thead>
   <tbody>
@@ -117,6 +118,11 @@
       <td>
         <button type="button" class="btn btn-primary" @click="editTask(task.id)">
           Bearbeiten
+        </button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" @click="deleteTask(task)">
+          Löschen
         </button>
       </td>
     </tr>
@@ -166,6 +172,10 @@ export default {
       else if (Number(prio) === 2) return "Mittel"
       else return "Niedrig"
     },
+    deleteTask(task) {
+      const index = this.taskArray.indexOf(task)
+      this.taskArray.splice(index, 1);
+    }
   }
 }
 </script>
