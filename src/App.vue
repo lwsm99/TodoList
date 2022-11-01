@@ -7,6 +7,10 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
       Add Task
     </button>
+    
+    <button type="button" id="register" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+      Register
+    </button>
   </div>
 
   <!-- Modal Add Task -->
@@ -52,42 +56,25 @@
   </div>
 
   <!-- Modal  Edit Task-->
-  <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabelEdit">Modal title</h5>
+          <h5 class="modal-title" id="exampleModal1">Register User</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" v-model="addTaskInput" class="form-control" style="width: 20rem" placeholder="Task">
+            <input type="text" v-model="addUsernameInput" class="form-control" style="width: 20rem" placeholder="Username">
           </div>
-          <select class="form-select form-select-lg mb-3" style="width: 20rem">
-            <option selected disabled>Kategorie auswählen</option>
-            <option  v-for="kategorie in kategorieArray" :key ="kategorie.id">{{kategorie}}</option>
-          </select>
-          <details>
-            <summary>Kategorie nicht dabei?</summary>
-            <div class="form-group">
-              <input type="text" v-model="addKategorieInput" class="form-control" style="width: 20rem" placeholder="Kategorie">
-            </div>
-            <button class="btn btn-secondary" @click="addKategorie">Kategorie hinzufügen</button>
-          </details>
           <br>
-          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 20rem" v-model="addTaskInputPrio">
-            <option selected disabled>Priorität</option>
-            <option value="3">Hoch</option>
-            <option value="2">Mittel</option>
-            <option value="1">Niedrig</option>
-          </select>
           <br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="addToList">Add To List</button>
+          <button type="button" class="btn btn-primary" @click="addUser">Add User</button>
         </div>
       </div>
     </div>
@@ -114,6 +101,8 @@
     </div>
   </div>
 </div>
+
+  
 
 <table class="table">
   <thead>
@@ -150,6 +139,7 @@
     </tr>
   </tbody>
 </table>
+<div>{{userArray}}</div>
 
 </template>
 
@@ -168,6 +158,7 @@ $(document).ready(function(){
   });
 });
 let i = 1;
+let j = 1;
 export default {
   name: 'App',
   components: {
@@ -179,10 +170,11 @@ export default {
 
       ],
       kategorieArray:[],
+      userArray:[],
       addTaskInput:"",
       addTaskInputPrio:0,
       kategorieInput:'',
-
+      addUsernameInput:'',
       addKategorieInput:"",
     }
   },
@@ -195,6 +187,12 @@ export default {
       this.addTaskInput = '';
       this.addTaskInputPrio = '';
       this.taskArray.sort((a, b) => b.prio - a.prio);
+    },
+    addUser(){
+      this.userArray.push(
+        {username: this.addUsernameInput, id: j}
+        )
+      j+=1
     },
     addKategorie(){
       this.kategorieArray.push(this.addKategorieInput)
@@ -218,5 +216,8 @@ export default {
 <style>
 #app {
   margin: 3rem;
+}
+#register{
+  margin-left :5px ;
 }
 </style>
