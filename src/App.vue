@@ -96,6 +96,34 @@
     </div>
   </div>
 
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Freitext</th>
+      <th scope="col">Prio</th>
+      <th scope="col">Done</th>
+      <th scope="col">Editieren</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="task in taskArray" :key="task.id">
+      <td>{{ task.freitext }}</td>
+      <td>{{changeName(task.prio)}} </td>
+      <td v-if="task.done"><button type="button" class="btn btn-primary" @click="task.done = !task.done">Nicht erledigt</button></td>
+      <td v-else>
+        <button type="button" class="btn btn-primary" @click="task.done = !task.done">
+          Erledigt
+        </button>
+      </td>
+      <td>
+        <button disabled type="button" class="btn btn-primary">
+          Bearbeiten
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 </template>
 
 <script>
@@ -132,7 +160,12 @@ export default {
     },
     editTask(id){
       console.log(id)
-    }
+    },
+    changeName(prio) {
+      if (Number(prio) === 3) return "Hoch"
+      else if (Number(prio) === 2) return "Mittel"
+      else return "Niedrig"
+    },
   }
 }
 </script>
