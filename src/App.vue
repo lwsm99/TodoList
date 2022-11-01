@@ -1,9 +1,19 @@
 <template>
-  <input type="text" v-model="addTaskInput">
- <button @click="addToList">add to List</button>
-  <p>
-    {{taskArray}}
-  </p>
+  <div id="app">
+    <h1 style="text-align: center">Todo-List</h1>
+
+      <div class="form-group">
+        <input type="text" v-model="addTaskInput" class="form-control" style="width: 20rem">
+      </div>
+      <button @click="addToList" class="btn btn-primary">add to List</button>
+
+    <p>
+      {{taskArray}}
+    </p>
+
+
+  </div>
+
 </template>
 
 <script>
@@ -16,13 +26,19 @@ export default {
   },
   data() {
     return {
-      taskArray: [],
+      taskArray: [
+
+      ],
       addTaskInput:"",
     }
   },
   methods:{
     addToList(){
-      this.taskArray.push(this.addTaskInput)
+      this.taskArray.push(
+          {freitext: this.addTaskInput, prio: 1, done: false}
+
+      )
+      this.addTaskInput = '';
     }
   }
 }
@@ -30,11 +46,6 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin: 3rem;
 }
 </style>
