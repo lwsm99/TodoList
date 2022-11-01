@@ -7,10 +7,6 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
       Add Task
     </button>
-
-    <div v-for="task in taskArray" :key="task.id">
-      <p>{{ task.freitext }} - {{ task.prio }} - {{ task.done }} <button @click="editTask(task.id)">Edit</button></p>
-    </div>
   </div>
 
   <!-- Modal -->
@@ -116,7 +112,7 @@
         </button>
       </td>
       <td>
-        <button disabled type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" @click="editTask(task.id)">
           Bearbeiten
         </button>
       </td>
