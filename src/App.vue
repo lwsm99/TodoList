@@ -23,7 +23,7 @@
           <div class="form-group">
             <input type="text" v-model="addTaskInput" class="form-control" style="width: 20rem" placeholder="Task">
           </div>
-          <select class="form-select form-select-lg mb-3" style="width: 20rem">
+          <select class="form-select form-select-lg mb-3" style="width: 20rem" v-model="kategorieInput">
             <option selected disabled>Kategorie auswählen</option>
             <option  v-for="kategorie in kategorieArray" :key ="kategorie.id">{{kategorie}}</option>
           </select>
@@ -97,6 +97,7 @@
   <thead>
     <tr>
       <th scope="col">Freitext</th>
+      <th scope="col">Kategorie</th>
       <th scope="col">Prio</th>
       <th scope="col">Done</th>
       <th scope="col">Editieren</th>
@@ -105,6 +106,7 @@
   <tbody>
     <tr v-for="task in taskArray" :key="task.id">
       <td>{{ task.freitext }}</td>
+      <td>{{ task.kategorie }}</td>
       <td>{{changeName(task.prio)}} </td>
       <td v-if="task.done"><button type="button" class="btn btn-primary" @click="task.done = !task.done">Nicht erledigt</button></td>
       <td v-else>
@@ -139,6 +141,7 @@ export default {
       kategorieArray:[],
       addTaskInput:"",
       addTaskInputPrio:0,
+      kategorieInput:'',
 
       addKategorieInput:"",
     }
@@ -146,7 +149,7 @@ export default {
   methods:{
     addToList(){
       this.taskArray.push(
-          {freitext: this.addTaskInput, prio: this.addTaskInputPrio, done: false, id: i}
+          {freitext: this.addTaskInput, prio: this.addTaskInputPrio, done: false, id: i, kategorie: this.kategorieInput}
       )
       i+=1
       this.addTaskInput = '';
