@@ -7,9 +7,9 @@
       </div>
       <button @click="addToList" class="btn btn-primary">add to List</button>
 
-    <p>
-      {{taskArray}}
-    </p>
+    <div v-for="task in taskArray" :key="task.id">
+      <p>{{ task.freitext }} - {{ task.prio }} - {{ task.done }}</p>
+    </div>
 
 
   </div>
