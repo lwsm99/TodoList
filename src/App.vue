@@ -92,7 +92,7 @@
       </div>
     </div>
   </div>
-
+<input type="text" class="form-control" placeholder="Suche..." id="searchBar">
 <!-- Modal Delete Task -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -126,7 +126,7 @@
       <th scope="col">Löschen</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="taskTable">
     <tr v-for="task in taskArray" :key="task.id">
       <td>{{ task.freitext }}</td>
       <td>{{ task.kategorie }}</td>
@@ -154,7 +154,19 @@
 </template>
 
 <script>
-
+// eslint-disable-next-line
+$(document).ready(function(){
+  // eslint-disable-next-line
+  $("#searchBar").on("keyup", function() {
+    // eslint-disable-next-line
+    var value = $(this).val().toLowerCase();
+    // eslint-disable-next-line
+    $("#taskTable tr").filter(function() {
+      // eslint-disable-next-line
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 let i = 1;
 export default {
   name: 'App',
