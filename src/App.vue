@@ -110,15 +110,15 @@
       <td>{{ task.freitext }}</td>
       <td>{{ task.kategorie }}</td>
       <td>{{changeName(task.prio)}} </td>
-      <td v-if="task.done"><button type="button" class="btn btn-primary" @click="task.done = !task.done">Nicht erledigt</button></td>
+      <td v-if="task.done"><button type="button" class="btn btn-danger" @click="task.done = !task.done"><i class="fa-solid fa-xmark"></i></button></td>
       <td v-else>
-        <button type="button" class="btn btn-primary" @click="task.done = !task.done">
-          Erledigt
+        <button type="button" class="btn btn-success" @click="task.done = !task.done">
+          <i class="fa-solid fa-check"></i>
         </button>
       </td>
       <td>
-        <button type="button" class="btn btn-primary" @click="openEditTask(task.id)" data-toggle="modal" data-target="#modalEdit">
-          Bearbeiten
+        <button type="button" class="btn btn-warning" @click="openEditTask(task.id)" data-toggle="modal" data-target="#modalEdit">
+          <i class="fa-solid fa-pencil"></i>
         </button>
       </td>
     </tr>
