@@ -93,6 +93,28 @@
     </div>
   </div>
 <input type="text" class="form-control" placeholder="Suche..." id="searchBar">
+<!-- Modal Delete Task -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Löschen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Wirklich diese Aufgabe löschen?
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" @click="deleteTask(task)" data-dismiss="modal">Löschen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -101,6 +123,7 @@
       <th scope="col">Prio</th>
       <th scope="col">Done</th>
       <th scope="col">Editieren</th>
+      <th scope="col">Löschen</th>
     </tr>
   </thead>
   <tbody id="taskTable">
@@ -117,6 +140,11 @@
       <td>
         <button type="button" class="btn btn-primary" @click="editTask(task.id)">
           Bearbeiten
+        </button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
+          Löschen
         </button>
       </td>
     </tr>
@@ -166,6 +194,7 @@ export default {
       i+=1
       this.addTaskInput = '';
       this.addTaskInputPrio = '';
+      this.taskArray.sort((a, b) => b.prio - a.prio);
     },
     addKategorie(){
       this.kategorieArray.push(this.addKategorieInput)
@@ -178,6 +207,10 @@ export default {
       else if (Number(prio) === 2) return "Mittel"
       else return "Niedrig"
     },
+    deleteTask(task) {
+      const index = this.taskArray.indexOf(task)
+      this.taskArray.splice(index, 1);
+    }
   }
 }
 </script>
