@@ -209,7 +209,7 @@
   <div>
     Registered users:<br>
     <ul v-for="user in userArray" :key="user">
-      <li>{{ user.username }} - {{ user.id }}</li>
+      <li>{{ user.username }} - {{ user.id }} <button class="btn btn-danger" @click="removeObjectWithId(userArray, user.id)"><i class="fa-solid fa-trash"></i></button></li>
     </ul>
   </div>
 
