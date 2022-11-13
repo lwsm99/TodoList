@@ -216,6 +216,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 // eslint-disable-next-line
 $(document).ready(function () {
   // eslint-disable-next-line
