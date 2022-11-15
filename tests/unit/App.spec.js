@@ -36,12 +36,12 @@ describe('App.vue', () => {
 });
 
 describe('User', () => {
-  test('register users', () => {
+  it('registers users', () => {
     const wrapper = registerUsers(15);
     expect(wrapper.vm.userArray).toHaveLength(15)
   });
 
-  test('delete users', () => {
+  it('deletes users', () => {
     const wrapper = deleteUsers(registerUsers(15), 4);
     expect(wrapper.vm.userArray).toHaveLength(11);
   });
