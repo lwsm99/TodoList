@@ -13,6 +13,14 @@ function registerUsers(usersToRegister) {
   return wrapper;
 }
 
+function addCategory(addedCategories) {
+  const wrapper = shallowMount(App)
+  for(let i = 0; i < addedCategories; i++) {
+    wrapper.vm.addKategorie();
+  }
+  return wrapper;
+}
+
 function deleteUsers(givenUsers, usersToDelete) {
   const wrapper = givenUsers;
   for(let i = 0; i < usersToDelete; i++) {
@@ -21,7 +29,7 @@ function deleteUsers(givenUsers, usersToDelete) {
   return wrapper;
 }
 
-/* 
+/*
   Tests
 */
 
@@ -32,6 +40,14 @@ describe('App.vue', () => {
     wrapper.vm.addToList()
 
     expect(wrapper.vm.taskArray).toHaveLength(1)
+  })
+});
+
+describe('Kategorie', () => {
+  it('add category', () => {
+    const wrapper = addCategory(2)
+
+    expect(wrapper.vm.kategorieArray).toHaveLength(2)
   })
 });
 
