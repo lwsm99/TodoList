@@ -253,6 +253,7 @@ export default {
     }
   },
   methods: {
+
     addToList() {
       this.taskArray.push(
           {freitext: this.addTaskInput, prio: this.addTaskInputPrio, done: false, id: i, kategorie: this.kategorieInput}
@@ -262,19 +263,23 @@ export default {
       this.addTaskInputPrio = '';
       this.taskArray.sort((a, b) => b.prio - a.prio);
     },
+
     addUser() {
       this.userArray.push(
           {username: this.addUsernameInput, id: j}
       )
       j += 1
     },
+
     addKategorie() {
       this.kategorieArray.push(this.addKategorieInput)
     },
+
     removeObjectWithId(arr, id) {
       const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
       arr.splice(objWithIdIndex, 1);
     },
+
     openEditTask(id) {
       let task = this.taskArray.find(x => x.id === id)
       this.editTaskText = task.freitext
@@ -282,6 +287,7 @@ export default {
       this.editTaskPrio = task.prio
       this.editTaskId = task.id
     },
+
     editTask() {
       this.removeObjectWithId(this.taskArray, this.editTaskId)
       this.taskArray.push(
@@ -294,6 +300,7 @@ export default {
           }
       )
     },
+
     changeName(prio) {
       switch (prio) {
         case "4":
@@ -306,6 +313,7 @@ export default {
           return "Niedrig"
       }
     },
+    
     deleteTask(task) {
       const index = this.taskArray.indexOf(task)
       this.taskArray.splice(index, 1);
