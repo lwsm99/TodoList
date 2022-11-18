@@ -29,18 +29,24 @@ function deleteUsers(givenUsers, usersToDelete) {
   return wrapper;
 }
 
+
 /*
   Tests
 */
 
-describe('App.vue', () => {
+describe('Task', () => {
   it('adds item to list', () => {
     const wrapper = shallowMount(App)
 
     wrapper.vm.addToList()
-
     expect(wrapper.vm.taskArray).toHaveLength(1)
-  })
+  });
+  it('remove task from list', () => {
+    const wrapper = shallowMount(App)
+    wrapper.vm.addToList()
+    wrapper.vm.deleteTask(1)
+    expect(wrapper.vm.taskArray).toHaveLength(0)
+  });
 });
 
 describe('Kategorie', () => {
@@ -62,3 +68,4 @@ describe('User', () => {
     expect(wrapper.vm.userArray).toHaveLength(11);
   });
 });
+
