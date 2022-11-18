@@ -1,24 +1,11 @@
-name: Build Vue
-on: [push]
+name: Run Unit Tests
+"on": push
 jobs:
-  build_vue:
+  unit_test-lint:
     runs-on: ubuntu-latest
-    name: Build Vue
     steps:
-    - uses: actions/checkout@v2
-    - id: Build-Vue
-      uses: xRealNeon/VuePagesAction@1.0.1
-      with:
-        username: 'lwsm99'
-        reponame: 'TodoList'
-        token: ${{ secrets.GITHUB_TOKEN }}
-  unit_test:
-    runs-on: ubuntu-latest
-    name: Test Vue
-    steps:
-    - uses: actions/checkout@v2
-    - id: Test-Vue
-    - run: |
-            npm ci
-            npm run build
-            npm run test:unit
+      - uses: actions/checkout@v2
+      - run: |
+              npm ci
+              npm run build
+              npm run test:unit
